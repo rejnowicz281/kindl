@@ -17,6 +17,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { IClipping, IClippingFilter, IClippingShow, IClippingsTemplate } from "@/lib/types";
 import { formatDateToDatetimeLocal } from "@/lib/utils";
 import { Funnel } from "lucide-react";
+import { SaveTemplate } from "../SaveTemplate";
 import { TemplateSelect } from "./TemplateSelect";
 
 export const FiltersSheet = ({
@@ -214,7 +215,16 @@ export const FiltersSheet = ({
                 </div>
 
                 <SheetFooter>
-                    <Button>Save template</Button>
+                    <SaveTemplate
+                        setCurrentTemplateId={setCurrentTemplateId}
+                        clippings={clippings}
+                        clippingFilter={clippingFilter}
+                        clippingShow={clippingShow}
+                        setTemplates={setTemplates}
+                        currentTemplateId={currentTemplateId}
+                        trigger={<Button>Save template</Button>}
+                    />
+
                     {currentTemplateId && (
                         <Button
                             variant="outline"

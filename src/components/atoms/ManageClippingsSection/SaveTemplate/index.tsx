@@ -13,7 +13,8 @@ export const SaveTemplate = ({
     clippingFilter,
     clippingShow,
     clippings,
-    setCurrentTemplateId
+    setCurrentTemplateId,
+    trigger
 }: {
     clippingFilter?: IClippingFilter;
     clippingShow: IClippingShow;
@@ -21,6 +22,7 @@ export const SaveTemplate = ({
     currentTemplateId?: string;
     setCurrentTemplateId: React.Dispatch<React.SetStateAction<string | undefined>>;
     setTemplates: React.Dispatch<React.SetStateAction<IClippingsTemplate[]>>;
+    trigger?: React.ReactNode;
 }) => {
     const initialChosenOption = currentTemplateId ? null : "new";
     const [chosenOption, setChosenOption] = useState<"new" | null>(initialChosenOption);
@@ -39,16 +41,20 @@ export const SaveTemplate = ({
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <Tooltip>
-                <DialogTrigger asChild>
-                    <TooltipTrigger asChild>
-                        <Button variant="ghost">
-                            <Save />
-                        </Button>
-                    </TooltipTrigger>
-                </DialogTrigger>
-                <TooltipContent>Save template ({clippings.length} clippings)</TooltipContent>
-            </Tooltip>
+            {trigger ? (
+                <DialogTrigger asChild>{trigger}</DialogTrigger>
+            ) : (
+                <Tooltip>
+                    <DialogTrigger asChild>
+                        <TooltipTrigger asChild>
+                            <Button variant="ghost">
+                                <Save />
+                            </Button>
+                        </TooltipTrigger>
+                    </DialogTrigger>
+                    <TooltipContent>Save template ({clippings.length} clippings)</TooltipContent>
+                </Tooltip>
+            )}
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>{chosenOption === "new" ? "Create new template" : "Choose an option"}</DialogTitle>
