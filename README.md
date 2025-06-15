@@ -1,54 +1,48 @@
-# React + TypeScript + Vite
+<p align="center">
+  <h1 align="center">kindl</h1>
+  <h4 align="center">Manage your kindle clippings</h4>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <a href="https://react.com/">
+    <img alt="react" src="https://shields.io/badge/react-black?logo=react&style=for-the-badge" />
+  </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+    <img alt="Typescript" src="https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square" />
+  </a>
+  <a href="https://tailwindcss.com">
+    <img alt="tailwind" src="https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss" />
+  </a>
+    <a href="https://ui.shadcn.com/">
+    <img alt="shadcn" src="https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff" />
+  </a>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/rejnowicz281/resume-to-pdf?color=%23B5CDA3&logo=github&logoColor=white" />
+  <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/y/rejnowicz281/resume-to-pdf?color=%23A76844&logo=github&logoColor=white" />
+  <img alt="Repo size" src="https://img.shields.io/github/repo-size/rejnowicz281/resume-to-pdf?color=%23C1AC95&logo=github&logoColor=white" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## About
 
-## Expanding the ESLint configuration
+The main idea behind the app is to provide a simple way to manage your kindle clippings (highlights/notes).\
+It allows you to import your clippings from the kindle and filter through them.\
+You can also save your current clippings and filters as templates, which get saved in local storage and can be used accross sessions.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Demo
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Live demo here: [live demo](https://rejnowicz281.github.io/kindl/)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Available scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+In the project directory, you can run:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### `npm i`
+
+To install all the dependencies
+
+### `npm run dev`
+
+To open the app in development mode.\
+Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
