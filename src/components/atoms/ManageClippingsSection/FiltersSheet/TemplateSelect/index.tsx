@@ -1,36 +1,39 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { IClippingsTemplate } from "@/lib/types";
+import type { IClippingsTemplate, IClippingsTemplateInfo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const TemplateSelect = ({
     classNames,
     templates,
-    setCurrentTemplateId,
-    currentTemplateId
+    setCurrentTemplateInfo,
+    currentTemplateInfo
 }: {
     classNames?: {
         container?: string;
         selectTrigger?: string;
     };
     templates: IClippingsTemplate[];
-    currentTemplateId: string | undefined;
-    setCurrentTemplateId: React.Dispatch<React.SetStateAction<string | undefined>>;
+    currentTemplateInfo?: IClippingsTemplateInfo;
+    setCurrentTemplateInfo: React.Dispatch<React.SetStateAction<IClippingsTemplateInfo | undefined>>;
 }) => {
     return (
         <div className={cn("flex flex-col gap-2", classNames?.container)}>
             <Label>Template</Label>
             <Select
-                value={currentTemplateId || " "}
+                value={currentTemplateInfo?.id || " "}
                 onValueChange={(value) => {
                     if (value === " ") {
-                        setCurrentTemplateId(undefined);
+                        setCurrentTemplateInfo(undefined);
                     } else {
                         const template = templates.find((t) => t.id === value);
 
                         if (!template) return;
 
-                        setCurrentTemplateId(template.id);
+                        setCurrentTemplateInfo({
+                            id: template.id,
+                            name: template.name
+                        });
                     }
                 }}
             >

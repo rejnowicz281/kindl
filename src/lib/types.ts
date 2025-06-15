@@ -36,9 +36,12 @@ export interface IClippingFilter {
     pageTo?: number;
 }
 
-export interface IClippingsTemplate {
+export interface IClippingsTemplateInfo {
     id: string;
     name: string;
+}
+
+export interface IClippingsTemplate extends IClippingsTemplateInfo {
     template: {
         filter?: IClippingFilter;
         show: IClippingShow;

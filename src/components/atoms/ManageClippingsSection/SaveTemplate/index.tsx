@@ -2,29 +2,35 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import type { IClipping, IClippingFilter, IClippingShow, IClippingsTemplate } from "@/lib/types";
+import type {
+    IClipping,
+    IClippingFilter,
+    IClippingShow,
+    IClippingsTemplate,
+    IClippingsTemplateInfo
+} from "@/lib/types";
 import { Save } from "lucide-react";
 import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 
 export const SaveTemplate = ({
-    currentTemplateId,
+    currentTemplateInfo,
     setTemplates,
     clippingFilter,
     clippingShow,
     clippings,
-    setCurrentTemplateId,
+    setCurrentTemplateInfo,
     trigger
 }: {
     clippingFilter?: IClippingFilter;
     clippingShow: IClippingShow;
     clippings: IClipping[];
-    currentTemplateId?: string;
-    setCurrentTemplateId: React.Dispatch<React.SetStateAction<string | undefined>>;
+    currentTemplateInfo?: IClippingsTemplateInfo;
+    setCurrentTemplateInfo: React.Dispatch<React.SetStateAction<IClippingsTemplateInfo | undefined>>;
     setTemplates: React.Dispatch<React.SetStateAction<IClippingsTemplate[]>>;
     trigger?: React.ReactNode;
 }) => {
-    const initialChosenOption = currentTemplateId ? null : "new";
+    const initialChosenOption = currentTemplateInfo?.id ? null : "new";
     const [chosenOption, setChosenOption] = useState<"new" | null>(initialChosenOption);
 
     const [newTemplateName, setNewTemplateName] = useState("");
@@ -37,7 +43,7 @@ export const SaveTemplate = ({
             setChosenOption(initialChosenOption);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [open, currentTemplateId]);
+    }, [open, currentTemplateInfo]);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -94,11 +100,14 @@ export const SaveTemplate = ({
                                 };
                                 setTemplates((prev) => [...prev, newTemplate]);
 
-                                setCurrentTemplateId(newTemplate.id);
+                                setCurrentTemplateInfo({
+                                    id: newTemplate.id,
+                                    name: newTemplate.name
+                                });
                             } else {
                                 setTemplates((prev) =>
                                     prev.map((template) =>
-                                        template.id === currentTemplateId
+                                        template.id === currentTemplateInfo?.id
                                             ? {
                                                   ...template,
                                                   template: { filter: clippingFilter, show: clippingShow, clippings }

@@ -14,7 +14,13 @@ import {
     SheetTrigger
 } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import type { IClipping, IClippingFilter, IClippingShow, IClippingsTemplate } from "@/lib/types";
+import type {
+    IClipping,
+    IClippingFilter,
+    IClippingShow,
+    IClippingsTemplate,
+    IClippingsTemplateInfo
+} from "@/lib/types";
 import { formatDateToDatetimeLocal } from "@/lib/utils";
 import { Funnel } from "lucide-react";
 import { SaveTemplate } from "../SaveTemplate";
@@ -28,8 +34,8 @@ export const FiltersSheet = ({
     setClippingShow,
     templates,
     setTemplates,
-    currentTemplateId,
-    setCurrentTemplateId
+    currentTemplateInfo,
+    setCurrentTemplateInfo
 }: {
     clippings: IClipping[];
     clippingFilter?: IClippingFilter;
@@ -38,8 +44,8 @@ export const FiltersSheet = ({
     setClippingShow: React.Dispatch<React.SetStateAction<IClippingShow>>;
     templates: IClippingsTemplate[];
     setTemplates: React.Dispatch<React.SetStateAction<IClippingsTemplate[]>>;
-    currentTemplateId?: string;
-    setCurrentTemplateId: React.Dispatch<React.SetStateAction<string | undefined>>;
+    currentTemplateInfo?: IClippingsTemplateInfo;
+    setCurrentTemplateInfo: React.Dispatch<React.SetStateAction<IClippingsTemplateInfo | undefined>>;
 }) => {
     return (
         <Sheet>
@@ -62,8 +68,8 @@ export const FiltersSheet = ({
                     <TemplateSelect
                         classNames={{ container: "mb-2", selectTrigger: "w-full" }}
                         templates={templates}
-                        setCurrentTemplateId={setCurrentTemplateId}
-                        currentTemplateId={currentTemplateId}
+                        setCurrentTemplateInfo={setCurrentTemplateInfo}
+                        currentTemplateInfo={currentTemplateInfo}
                     />
                     <Separator className="mb-2" />
                     <ClippingShowSetter
@@ -216,21 +222,21 @@ export const FiltersSheet = ({
 
                 <SheetFooter>
                     <SaveTemplate
-                        setCurrentTemplateId={setCurrentTemplateId}
+                        setCurrentTemplateInfo={setCurrentTemplateInfo}
                         clippings={clippings}
                         clippingFilter={clippingFilter}
                         clippingShow={clippingShow}
                         setTemplates={setTemplates}
-                        currentTemplateId={currentTemplateId}
+                        currentTemplateInfo={currentTemplateInfo}
                         trigger={<Button>Save template</Button>}
                     />
 
-                    {currentTemplateId && (
+                    {currentTemplateInfo?.id && (
                         <Button
                             variant="outline"
                             onClick={() => {
-                                setCurrentTemplateId(undefined);
-                                setTemplates((prev) => prev.filter((t) => t.id !== currentTemplateId));
+                                setCurrentTemplateInfo(undefined);
+                                setTemplates((prev) => prev.filter((t) => t.id !== currentTemplateInfo.id));
                             }}
                         >
                             Delete template

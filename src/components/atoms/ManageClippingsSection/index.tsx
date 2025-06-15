@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLocalState } from "@/hooks/useLocalState";
-import type { IClipping, IClippingFilter, IClippingShow, IClippingsTemplate } from "@/lib/types";
+import type {
+    IClipping,
+    IClippingFilter,
+    IClippingShow,
+    IClippingsTemplate,
+    IClippingsTemplateInfo
+} from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import type React from "react";
 import { useEffect } from "react";
@@ -15,8 +22,10 @@ export const ManageClippingsSection = ({
     clippingFilter,
     setClippingFilter,
     clippingShow,
-    setClippingShow
+    setClippingShow,
+    className
 }: {
+    className?: string;
     clippings: IClipping[];
     setClippings: React.Dispatch<React.SetStateAction<IClipping[]>>;
     clippingFilter?: IClippingFilter;
@@ -26,11 +35,13 @@ export const ManageClippingsSection = ({
 }) => {
     const [templates, setTemplates] = useLocalState<IClippingsTemplate[]>("clippingsTemplates", []);
 
-    const [currentTemplateId, setCurrentTemplateId] = useLocalState<string | undefined>("currentClippingsTemplateId");
+    const [currentTemplateInfo, setCurrentTemplateInfo] = useLocalState<IClippingsTemplateInfo | undefined>(
+        "currentClippingsTemplateInfo"
+    );
 
     useEffect(() => {
-        if (currentTemplateId) {
-            const template = templates.find((t) => t.id === currentTemplateId);
+        if (currentTemplateInfo?.id) {
+            const template = templates.find((t) => t.id === currentTemplateInfo.id);
 
             if (!template) return;
 
@@ -46,10 +57,10 @@ export const ManageClippingsSection = ({
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentTemplateId]);
+    }, [currentTemplateInfo]);
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className={cn("flex flex-col gap-4", className)}>
             <div className="flex gap-2">
                 <ClippingsImporter className="max-w-[520px]" onImport={(clippings) => setClippings(clippings)} />
 
@@ -68,12 +79,12 @@ export const ManageClippingsSection = ({
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <SaveTemplate
-                            setCurrentTemplateId={setCurrentTemplateId}
+                            setCurrentTemplateInfo={setCurrentTemplateInfo}
                             clippings={clippings}
                             clippingFilter={clippingFilter}
                             clippingShow={clippingShow}
                             setTemplates={setTemplates}
-                            currentTemplateId={currentTemplateId}
+                            currentTemplateInfo={currentTemplateInfo}
                         />
                     </TooltipTrigger>
 
@@ -88,12 +99,16 @@ export const ManageClippingsSection = ({
                     setClippingFilter={setClippingFilter}
                     templates={templates}
                     setTemplates={setTemplates}
-                    setCurrentTemplateId={setCurrentTemplateId}
-                    currentTemplateId={currentTemplateId}
+                    setCurrentTemplateInfo={setCurrentTemplateInfo}
+                    currentTemplateInfo={currentTemplateInfo}
                 />
             </div>
             {!clippings.length ? (
                 <p className="mx-2">Import a kindle My Clippings.txt file to see its content formatted below</p>
+            ) : currentTemplateInfo?.id ? (
+                <p className="mx-2">
+                    Using template: <span className="underline font-bold">{currentTemplateInfo.name}</span>
+                </p>
             ) : null}
         </div>
     );
