@@ -26,8 +26,8 @@ export interface IClippingFilter {
     // afterText?: string;
     // beforeText?: string;
 
-    dateFrom?: Date;
-    dateTo?: Date;
+    dateFrom?: string;
+    dateTo?: string;
 
     locationFrom?: number;
     locationTo?: number;

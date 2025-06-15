@@ -114,11 +114,11 @@ export const FiltersSheet = ({
                             id="dateFromFilter"
                             type="datetime-local"
                             placeholder="Filter by date start"
-                            value={formatDateToDatetimeLocal(clippingFilter?.dateFrom)}
+                            value={formatDateToDatetimeLocal(new Date(clippingFilter?.dateFrom || ""))}
                             onChange={(e) => {
                                 setClippingFilter({
                                     ...clippingFilter,
-                                    dateFrom: e.target.value ? new Date(e.target.value) : undefined
+                                    dateFrom: e.target.value ? e.target.value : undefined
                                 });
                             }}
                         />
@@ -131,11 +131,11 @@ export const FiltersSheet = ({
                             id="dateToFilter"
                             type="datetime-local"
                             placeholder="Filter by date end"
-                            value={formatDateToDatetimeLocal(clippingFilter?.dateTo)}
+                            value={formatDateToDatetimeLocal(new Date(clippingFilter?.dateTo || ""))}
                             onChange={(e) => {
                                 setClippingFilter({
                                     ...clippingFilter,
-                                    dateTo: e.target.value ? new Date(e.target.value) : undefined
+                                    dateTo: e.target.value ? e.target.value : undefined
                                 });
                             }}
                         />

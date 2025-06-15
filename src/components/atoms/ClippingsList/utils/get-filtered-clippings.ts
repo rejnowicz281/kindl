@@ -9,12 +9,14 @@ export const getFilteredClippings = (clippings: IClipping[], filter?: IClippingF
 
               const filterBookTitle = filter.bookTitle?.trim().toLowerCase() || "";
               const filterText = filter.text?.trim().toLowerCase() || "";
+              const filterDateFrom = filter.dateFrom ? new Date(filter.dateFrom) : null;
+              const filterDateTo = filter.dateTo ? new Date(filter.dateTo) : null;
 
               if (filter.bookTitle && !clippingBookTitle.includes(filterBookTitle)) return false;
               if (filter.text && !clippingText.includes(filterText)) return false;
 
-              if (filter.dateFrom && clippingDate.getTime() < filter.dateFrom.getTime()) return false;
-              if (filter.dateTo && clippingDate.getTime() > filter.dateTo.getTime()) return false;
+              if (filterDateFrom && clippingDate.getTime() < filterDateFrom.getTime()) return false;
+              if (filterDateTo && clippingDate.getTime() > filterDateTo.getTime()) return false;
 
               if (
                   filter.locationFrom &&
