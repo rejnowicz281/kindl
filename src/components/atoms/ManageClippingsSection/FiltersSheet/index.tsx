@@ -2,6 +2,7 @@ import { ClippingShowSetter } from "@/components/atoms/ClippingShowSetter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import {
     Sheet,
@@ -19,7 +20,8 @@ import type {
     IClippingFilter,
     IClippingShow,
     IClippingsTemplate,
-    IClippingsTemplateInfo
+    IClippingsTemplateInfo,
+    IClippingType
 } from "@/lib/types";
 import { formatDateToDatetimeLocal } from "@/lib/utils";
 import { Funnel } from "lucide-react";
@@ -111,6 +113,37 @@ export const FiltersSheet = ({
                                 });
                             }}
                         />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="typeFilter" className="text-sm font-medium">
+                            Type
+                        </Label>
+                        <Select
+                            value={clippingFilter?.type || " "}
+                            onValueChange={(value) => {
+                                if (value === " ") {
+                                    setClippingFilter({
+                                        ...clippingFilter,
+                                        type: undefined
+                                    });
+                                } else {
+                                    setClippingFilter({
+                                        ...clippingFilter,
+                                        type: value as IClippingType
+                                    });
+                                }
+                            }}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Highlight" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value=" ">Any</SelectItem>
+
+                                <SelectItem value="Highlight">Highlight</SelectItem>
+                                <SelectItem value="Note">Note</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="dateFromFilter" className="text-sm font-medium">

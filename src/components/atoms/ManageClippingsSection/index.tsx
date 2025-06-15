@@ -52,7 +52,7 @@ export const ManageClippingsSection = ({
             setClippingFilter(undefined);
             setClippingShow({
                 bookTitle: true,
-                highlightInfo: true,
+                details: true,
                 text: true
             });
         }

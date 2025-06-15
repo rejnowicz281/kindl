@@ -1,4 +1,7 @@
-export interface IHighlightInfo {
+export type IClippingType = "Highlight" | "Note" | "Unknown";
+
+export interface IClippingDetails {
+    type: IClippingType;
     page: number;
     location: {
         from: number;
@@ -9,13 +12,13 @@ export interface IHighlightInfo {
 
 export interface IClipping {
     bookTitle: string;
-    highlightInfo?: IHighlightInfo;
+    details?: IClippingDetails;
     text: string;
 }
 
 export interface IClippingShow {
     text?: boolean;
-    highlightInfo?: boolean;
+    details?: boolean;
     bookTitle?: boolean;
 }
 
@@ -34,6 +37,8 @@ export interface IClippingFilter {
 
     pageFrom?: number;
     pageTo?: number;
+
+    type?: IClippingType;
 }
 
 export interface IClippingsTemplateInfo {

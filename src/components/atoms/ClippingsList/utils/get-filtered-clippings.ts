@@ -3,7 +3,7 @@ import type { IClipping, IClippingFilter } from "@/lib/types";
 export const getFilteredClippings = (clippings: IClipping[], filter?: IClippingFilter) => {
     return filter
         ? clippings.filter((clipping) => {
-              const clippingDate = new Date(clipping.highlightInfo?.date || "");
+              const clippingDate = new Date(clipping.details?.date || "");
               const clippingBookTitle = clipping.bookTitle?.trim().toLowerCase() || "";
               const clippingText = clipping.text?.trim().toLowerCase() || "";
 
@@ -12,29 +12,22 @@ export const getFilteredClippings = (clippings: IClipping[], filter?: IClippingF
               const filterDateFrom = filter.dateFrom ? new Date(filter.dateFrom) : null;
               const filterDateTo = filter.dateTo ? new Date(filter.dateTo) : null;
 
+              if (filter.type && clipping.details?.type !== filter.type) return false;
+
               if (filter.bookTitle && !clippingBookTitle.includes(filterBookTitle)) return false;
               if (filter.text && !clippingText.includes(filterText)) return false;
 
               if (filterDateFrom && clippingDate.getTime() < filterDateFrom.getTime()) return false;
               if (filterDateTo && clippingDate.getTime() > filterDateTo.getTime()) return false;
 
-              if (
-                  filter.locationFrom &&
-                  clipping.highlightInfo &&
-                  clipping.highlightInfo.location.from < filter.locationFrom
-              )
+              if (filter.locationFrom && clipping.details && clipping.details.location.from < filter.locationFrom)
                   return false;
-              if (
-                  filter.locationTo &&
-                  clipping.highlightInfo &&
-                  clipping.highlightInfo.location.from > filter.locationTo
-              )
+              if (filter.locationTo && clipping.details && clipping.details.location.from > filter.locationTo)
                   return false;
 
-              if (filter.pageFrom && clipping.highlightInfo && clipping.highlightInfo.page < filter.pageFrom)
-                  return false;
+              if (filter.pageFrom && clipping.details && clipping.details.page < filter.pageFrom) return false;
 
-              if (filter.pageTo && clipping.highlightInfo && clipping.highlightInfo?.page > filter.pageTo) return false;
+              if (filter.pageTo && clipping.details && clipping.details?.page > filter.pageTo) return false;
 
               return true;
           })

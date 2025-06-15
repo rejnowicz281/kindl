@@ -8,7 +8,7 @@ export const ClippingsSection = ({ className }: { className?: string }) => {
     const [clippings, setClippings] = useState<IClipping[]>([]);
     const [clippingShow, setClippingShow] = useState<IClippingShow>({
         text: true,
-        highlightInfo: true,
+        details: true,
         bookTitle: true
     });
     const [clippingFilter, setClippingFilter] = useState<IClippingFilter>();

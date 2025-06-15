@@ -12,15 +12,15 @@ interface ClippingShowSetterProps {
 export const ClippingShowSetter = ({ clippingShow, setClippingShow, className }: ClippingShowSetterProps) => {
     const shouldBeDisabled = (key: keyof IClippingShow) => {
         return (
-            (key === "text" && !clippingShow.highlightInfo && !clippingShow.bookTitle && clippingShow.text) ||
-            (key === "highlightInfo" && !clippingShow.text && !clippingShow.bookTitle && clippingShow.highlightInfo) ||
-            (key === "bookTitle" && !clippingShow.text && !clippingShow.highlightInfo && clippingShow.bookTitle)
+            (key === "text" && !clippingShow.details && !clippingShow.bookTitle && clippingShow.text) ||
+            (key === "details" && !clippingShow.text && !clippingShow.bookTitle && clippingShow.details) ||
+            (key === "bookTitle" && !clippingShow.text && !clippingShow.details && clippingShow.bookTitle)
         );
     };
 
     const disabled = {
         text: shouldBeDisabled("text"),
-        highlightInfo: shouldBeDisabled("highlightInfo"),
+        details: shouldBeDisabled("details"),
         bookTitle: shouldBeDisabled("bookTitle")
     };
 
@@ -45,12 +45,12 @@ export const ClippingShowSetter = ({ clippingShow, setClippingShow, className }:
             </div>
             <div className="flex items-center gap-3">
                 <Checkbox
-                    disabled={disabled.highlightInfo}
-                    id="highlightInfo"
-                    checked={clippingShow?.highlightInfo}
-                    onCheckedChange={(checked) => handleCheckedChange("highlightInfo", checked)}
+                    disabled={disabled.details}
+                    id="details"
+                    checked={clippingShow?.details}
+                    onCheckedChange={(checked) => handleCheckedChange("details", checked)}
                 />
-                <Label htmlFor="highlightInfo">Show highlight info</Label>
+                <Label htmlFor="details">Show clipping details</Label>
             </div>
             <div className="flex items-center gap-3">
                 <Checkbox

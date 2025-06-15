@@ -9,7 +9,7 @@ export const ClippingsList = ({
     clippings,
     clippingShow = {
         bookTitle: true,
-        highlightInfo: true,
+        details: true,
         text: true
     }
 }: {
@@ -22,19 +22,19 @@ export const ClippingsList = ({
 
     return (
         <div className={cn("flex flex-col gap-8", className)}>
-            {filteredClippings.map(({ bookTitle, highlightInfo, text }, index) =>
-                bookTitle && highlightInfo && text ? (
+            {filteredClippings.map(({ bookTitle, details, text }, index) =>
+                bookTitle && details && text ? (
                     <Card key={index}>
-                        {clippingShow.bookTitle || clippingShow.highlightInfo ? (
+                        {clippingShow.bookTitle || clippingShow.details ? (
                             <CardHeader>
                                 {clippingShow.bookTitle ? (
                                     <CardTitle className="text-lg font-semibold">{bookTitle}</CardTitle>
                                 ) : null}
-                                {clippingShow.highlightInfo ? (
+                                {clippingShow.details ? (
                                     <CardDescription className="text-sm text-gray-600">
-                                        {highlightInfo
-                                            ? `Page: ${highlightInfo.page} | Location: ${highlightInfo.location.from}-${highlightInfo.location.to} | Date: ${highlightInfo.date}`
-                                            : "No highlight information available"}
+                                        {details
+                                            ? `Page: ${details.page} | Type: ${details.type} | Location: ${details.location.from}-${details.location.to} | Date: ${details.date}`
+                                            : "No clipping details available"}
                                     </CardDescription>
                                 ) : null}
                             </CardHeader>

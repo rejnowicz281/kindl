@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import type { IClipping, IHighlightInfo } from "@/lib/types";
+import type { IClipping, IClippingDetails } from "@/lib/types";
 import React from "react";
 
 export const ClippingsImporter = ({
@@ -29,31 +29,47 @@ export const ClippingsImporter = ({
             if (parts.length < 3) {
                 return {
                     bookTitle: "",
-                    highlightInfo: undefined,
+                    details: undefined,
                     text: ""
                 };
             }
             const bookTitle = parts[0].trim();
-            const highlightInfo = extractHighlighInfo(parts[1].trim());
+            const details = extractDetails(parts[1].trim());
             const text = parts.slice(2).join("\n").trim();
 
-            return { bookTitle, highlightInfo, text };
+            return { bookTitle, details, text };
         });
 
         return entries;
     };
 
-    const extractHighlighInfo = (string: string): IHighlightInfo | undefined => {
-        const regex = /Your Highlight on page (\d+) \| Location (\d+)-(\d+) \| Added on (.+)/;
-        const match = string.match(regex);
-        if (match) {
+    const extractDetails = (string: string): IClippingDetails | undefined => {
+        const noteRegex = /Your Note on page (\d+) \| Location (\d+) \| Added on (.+)/;
+        const highlightRegex = /Your (Note|Highlight) on page (\d+) \| Location (\d+)-(\d+) \| Added on (.+)/;
+
+        const noteMatch = string.match(noteRegex);
+        const highlightMatch = string.match(highlightRegex);
+
+        if (noteMatch) {
             return {
-                page: parseInt(match[1], 10),
+                type: "Note",
+                page: parseInt(noteMatch[1], 10),
                 location: {
-                    from: parseInt(match[2], 10),
-                    to: parseInt(match[3], 10)
+                    from: parseInt(noteMatch[2], 10),
+                    to: parseInt(noteMatch[2], 10)
                 },
-                date: match[4]
+                date: noteMatch[3]
+            };
+        } else if (highlightMatch) {
+            return {
+                type:
+                    highlightMatch[1] === "Highlight" ? "Highlight" : highlightMatch[1] === "Note" ? "Note" : "Unknown",
+                page: parseInt(highlightMatch[2], 10),
+                location: {
+                    from: parseInt(highlightMatch[3], 10),
+                    to: parseInt(highlightMatch[4], 10)
+                },
+                date: highlightMatch[5]
             };
         } else return undefined;
     };
