@@ -19,9 +19,9 @@
 </p>
 
 <p align="center">
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/rejnowicz281/resume-to-pdf?color=%23B5CDA3&logo=github&logoColor=white" />
-  <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/y/rejnowicz281/resume-to-pdf?color=%23A76844&logo=github&logoColor=white" />
-  <img alt="Repo size" src="https://img.shields.io/github/repo-size/rejnowicz281/resume-to-pdf?color=%23C1AC95&logo=github&logoColor=white" />
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/rejnowicz281/kindl?color=%23B5CDA3&logo=github&logoColor=white" />
+  <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/y/rejnowicz281/kindl?color=%23A76844&logo=github&logoColor=white" />
+  <img alt="Repo size" src="https://img.shields.io/github/repo-size/rejnowicz281/kindl?color=%23C1AC95&logo=github&logoColor=white" />
 </p>
 
 ## About
