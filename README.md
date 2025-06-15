@@ -27,8 +27,16 @@
 ## About
 
 The main idea behind the app is to provide a simple way to manage your kindle clippings (highlights/notes).\
-It allows you to import your clippings from the kindle and filter through them.\
+It allows you to import your clippings file from your kindle and filter through them, as well as choose how the data is displayed.\
 You can also save your current clippings and filters as templates, which get saved in local storage and can be used accross sessions.
+
+## Where can I find my clippings file?
+
+1. Connect your kindle to your computer via USB cable
+2. Open the kindle drive in your file explorer
+3. Navigate to the `documents` folder
+4. The 'My Clippings.txt' file should be there.
+   If you don't see it, make sure you have some highlights or notes in your kindle.
 
 ## Demo
 
