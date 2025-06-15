@@ -18,3 +18,20 @@ export interface IClippingShow {
     highlightInfo?: boolean;
     bookTitle?: boolean;
 }
+
+export interface IClippingFilter {
+    bookTitle?: string;
+
+    text?: string;
+    // afterText?: string;
+    // beforeText?: string;
+
+    dateFrom?: Date;
+    dateTo?: Date;
+
+    locationFrom?: number;
+    locationTo?: number;
+
+    pageFrom?: number;
+    pageTo?: number;
+}

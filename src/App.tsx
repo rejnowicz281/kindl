@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ClippingShowSetter } from "./components/atoms/ClippingShowSetter";
-import { ClippingsImporter } from "./components/atoms/ClippingsImporter";
 import { ClippingsList } from "./components/atoms/ClippingsList";
-import type { IClipping, IClippingShow } from "./lib/types";
+import { ManageClippingsSection } from "./components/atoms/ManageClippingsSection";
+import { TooltipProvider } from "./components/ui/tooltip";
+import { type IClipping, type IClippingFilter, type IClippingShow } from "./lib/types";
 
 function App() {
     const [clippings, setClippings] = useState<IClipping[]>([]);
@@ -11,25 +11,24 @@ function App() {
         highlightInfo: true,
         bookTitle: true
     });
+    const [clippingFilter, setClippingFilter] = useState<IClippingFilter>();
 
     return (
-        <div className="m-8">
-            <div className="flex flex-col gap-4">
-                <ClippingsImporter
-                    helperText={
-                        !clippings.length
-                            ? "Import a kindle My Clippings.txt file to see its content formatted below"
-                            : null
-                    }
-                    onImport={(clippings) => setClippings(clippings)}
-                />
-                {clippings.length ? (
-                    <ClippingShowSetter clippingShow={clippingShow} setClippingShow={setClippingShow} />
-                ) : null}
+        <TooltipProvider>
+            <div className="m-8">
+                <div className="flex flex-col gap-4">
+                    <ManageClippingsSection
+                        clippings={clippings}
+                        setClippings={setClippings}
+                        clippingFilter={clippingFilter}
+                        setClippingFilter={setClippingFilter}
+                        clippingShow={clippingShow}
+                        setClippingShow={setClippingShow}
+                    />
+                </div>
+                <ClippingsList filter={clippingFilter} clippingShow={clippingShow} clippings={clippings} />
             </div>
-
-            <ClippingsList clippingShow={clippingShow} clippings={clippings} />
-        </div>
+        </TooltipProvider>
     );
 }
 

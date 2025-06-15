@@ -1,13 +1,15 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { IClippingShow } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface ClippingShowSetterProps {
     clippingShow: IClippingShow;
     setClippingShow: React.Dispatch<React.SetStateAction<IClippingShow>>;
+    className?: string;
 }
 
-export const ClippingShowSetter = ({ clippingShow, setClippingShow }: ClippingShowSetterProps) => {
+export const ClippingShowSetter = ({ clippingShow, setClippingShow, className }: ClippingShowSetterProps) => {
     const shouldBeDisabled = (key: keyof IClippingShow) => {
         return (
             (key === "text" && !clippingShow.highlightInfo && !clippingShow.bookTitle) ||
@@ -31,7 +33,7 @@ export const ClippingShowSetter = ({ clippingShow, setClippingShow }: ClippingSh
     };
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className={cn("flex flex-col gap-4", className)}>
             <div className="flex items-center gap-3">
                 <Checkbox
                     disabled={disabled.text}

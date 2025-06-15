@@ -3,11 +3,11 @@ import type { IClipping, IHighlightInfo } from "@/lib/types";
 import React from "react";
 
 export const ClippingsImporter = ({
-    helperText,
-    onImport
+    onImport,
+    className
 }: {
-    helperText?: string | null;
-    onImport?: (clippings: IClipping[]) => void;
+    onImport?: (clippings: IClipping[], clippingsStringified?: string) => void;
+    className?: string;
 }) => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -58,10 +58,5 @@ export const ClippingsImporter = ({
         } else return undefined;
     };
 
-    return (
-        <div className="flex flex-col gap-4">
-            <Input type="file" accept=".txt" onChange={handleFileChange} />
-            {helperText && <p className="mx-2">{helperText}</p>}
-        </div>
-    );
+    return <Input className={className} type="file" accept=".txt" onChange={handleFileChange} />;
 };

@@ -1,7 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import type { IClipping, IClippingShow } from "@/lib/types";
+import type { IClipping, IClippingFilter, IClippingShow } from "@/lib/types";
+import { getFilteredClippings } from "./utils/get-filtered-clippings";
 
 export const ClippingsList = ({
+    filter,
     clippings,
     clippingShow = {
         bookTitle: true,
@@ -9,12 +11,15 @@ export const ClippingsList = ({
         text: true
     }
 }: {
+    filter?: IClippingFilter;
     clippings: IClipping[];
     clippingShow?: IClippingShow;
 }) => {
+    const filteredClippings = getFilteredClippings(clippings, filter);
+
     return (
         <div className="flex flex-col gap-8 my-8">
-            {clippings.map(({ bookTitle, highlightInfo, text }, index) =>
+            {filteredClippings.map(({ bookTitle, highlightInfo, text }, index) =>
                 bookTitle && highlightInfo && text ? (
                     <Card key={index}>
                         {clippingShow.bookTitle || clippingShow.highlightInfo ? (
