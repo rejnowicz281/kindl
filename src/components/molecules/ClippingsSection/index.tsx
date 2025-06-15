@@ -14,18 +14,23 @@ export const ClippingsSection = ({ className }: { className?: string }) => {
     const [clippingFilter, setClippingFilter] = useState<IClippingFilter>();
 
     return (
-        <div className={clsx("flex flex-col gap-8", className)}>
-            <div className="flex flex-col gap-4">
-                <ManageClippingsSection
-                    clippings={clippings}
-                    setClippings={setClippings}
-                    clippingFilter={clippingFilter}
-                    setClippingFilter={setClippingFilter}
-                    clippingShow={clippingShow}
-                    setClippingShow={setClippingShow}
-                />
-            </div>
-            <ClippingsList filter={clippingFilter} clippingShow={clippingShow} clippings={clippings} />
+        <div className={clsx("flex flex-col", className)}>
+            <ManageClippingsSection
+                className="sticky top-0 bg-white z-10 px-8 pt-8 pb-4 mb-8 border-b border-b-gray-200"
+                clippings={clippings}
+                setClippings={setClippings}
+                clippingFilter={clippingFilter}
+                setClippingFilter={setClippingFilter}
+                clippingShow={clippingShow}
+                setClippingShow={setClippingShow}
+            />
+
+            <ClippingsList
+                className="mx-8 mb-8"
+                filter={clippingFilter}
+                clippingShow={clippingShow}
+                clippings={clippings}
+            />
         </div>
     );
 };

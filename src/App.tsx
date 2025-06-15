@@ -4,7 +4,7 @@ import { TooltipProvider } from "./components/ui/tooltip";
 function App() {
     return (
         <TooltipProvider>
-            <ClippingsSection className="m-8" />
+            <ClippingsSection />
         </TooltipProvider>
     );
 }

@@ -44,7 +44,7 @@ export const TemplateSelect = ({
                     <SelectItem value=" ">None</SelectItem>
                     {templates.map(({ id, name, template: { clippings } }) => (
                         <SelectItem key={id} value={id}>
-                            {name} {`${clippings.length ? `(${clippings.length})` : ""}`}
+                            {name} ({clippings.length})
                         </SelectItem>
                     ))}
                 </SelectContent>
