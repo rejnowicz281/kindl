@@ -18,7 +18,7 @@ export const ClippingsList = ({
     const filteredClippings = getFilteredClippings(clippings, filter);
 
     return (
-        <div className="flex flex-col gap-8 my-8">
+        <div className="flex flex-col gap-8">
             {filteredClippings.map(({ bookTitle, highlightInfo, text }, index) =>
                 bookTitle && highlightInfo && text ? (
                     <Card key={index}>

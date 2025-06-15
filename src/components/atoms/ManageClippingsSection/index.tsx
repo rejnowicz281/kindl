@@ -4,7 +4,7 @@ import type { IClipping, IClippingFilter, IClippingShow } from "@/lib/types";
 import { Save } from "lucide-react";
 import type React from "react";
 import { ClippingsImporter } from "../ClippingsImporter";
-import { FiltersSheet } from "./components/FiltersSheet";
+import { FiltersSheet } from "./FiltersSheet";
 
 export const ManageClippingsSection = ({
     clippings,
@@ -24,7 +24,7 @@ export const ManageClippingsSection = ({
     return (
         <div className="flex flex-col gap-4">
             <div className="flex gap-2">
-                <ClippingsImporter className="max-w-[520px] " onImport={(clippings) => setClippings(clippings)} />
+                <ClippingsImporter className="max-w-[520px]" onImport={(clippings) => setClippings(clippings)} />
 
                 <Tooltip>
                     <TooltipTrigger asChild>
