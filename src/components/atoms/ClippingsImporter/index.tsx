@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import type { ClippingType, HighlightInfoType } from "@/lib/types";
+import type { IClipping, IHighlightInfo } from "@/lib/types";
 import React from "react";
 
 export const ClippingsImporter = ({
@@ -7,7 +7,7 @@ export const ClippingsImporter = ({
     onImport
 }: {
     helperText?: string | null;
-    onImport?: (clippings: ClippingType[]) => void;
+    onImport?: (clippings: IClipping[]) => void;
 }) => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -23,11 +23,15 @@ export const ClippingsImporter = ({
         }
     };
 
-    const mapStringAsClippings = (string: string): ClippingType[] => {
+    const mapStringAsClippings = (string: string): IClipping[] => {
         const entries = string.split(/==========\r?\n/).map((entry) => {
             const parts = entry.split(/\r?\n/);
             if (parts.length < 3) {
-                return null;
+                return {
+                    bookTitle: "",
+                    highlightInfo: undefined,
+                    text: ""
+                };
             }
             const bookTitle = parts[0].trim();
             const highlightInfo = extractHighlighInfo(parts[1].trim());
@@ -39,7 +43,7 @@ export const ClippingsImporter = ({
         return entries;
     };
 
-    const extractHighlighInfo = (string: string): HighlightInfoType => {
+    const extractHighlighInfo = (string: string): IHighlightInfo | undefined => {
         const regex = /Your Highlight on page (\d+) \| Location (\d+)-(\d+) \| Added on (.+)/;
         const match = string.match(regex);
         if (match) {
@@ -51,7 +55,7 @@ export const ClippingsImporter = ({
                 },
                 date: match[4]
             };
-        } else return null;
+        } else return undefined;
     };
 
     return (

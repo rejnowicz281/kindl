@@ -7,12 +7,14 @@ export interface IHighlightInfo {
     date: string;
 }
 
-export type HighlightInfoType = IHighlightInfo | null;
-
 export interface IClipping {
     bookTitle: string;
-    highlightInfo: HighlightInfoType;
+    highlightInfo?: IHighlightInfo;
     text: string;
 }
 
-export type ClippingType = IClipping | null;
+export interface IClippingShow {
+    text?: boolean;
+    highlightInfo?: boolean;
+    bookTitle?: boolean;
+}
