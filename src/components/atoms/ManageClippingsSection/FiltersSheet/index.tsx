@@ -2,6 +2,7 @@ import { ClippingShowSetter } from "@/components/atoms/ClippingShowSetter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import {
     Sheet,
     SheetClose,
@@ -13,22 +14,31 @@ import {
     SheetTrigger
 } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import type { IClipping, IClippingFilter, IClippingShow } from "@/lib/types";
+import type { IClipping, IClippingFilter, IClippingShow, IClippingsTemplate } from "@/lib/types";
 import { formatDateToDatetimeLocal } from "@/lib/utils";
 import { Funnel } from "lucide-react";
+import { TemplateSelect } from "./TemplateSelect";
 
 export const FiltersSheet = ({
     clippings,
     clippingFilter,
     setClippingFilter,
     clippingShow,
-    setClippingShow
+    setClippingShow,
+    templates,
+    setTemplates,
+    currentTemplateId,
+    setCurrentTemplateId
 }: {
     clippings: IClipping[];
     clippingFilter?: IClippingFilter;
     setClippingFilter: React.Dispatch<React.SetStateAction<IClippingFilter | undefined>>;
     clippingShow: IClippingShow;
     setClippingShow: React.Dispatch<React.SetStateAction<IClippingShow>>;
+    templates: IClippingsTemplate[];
+    setTemplates: React.Dispatch<React.SetStateAction<IClippingsTemplate[]>>;
+    currentTemplateId?: string;
+    setCurrentTemplateId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) => {
     return (
         <Sheet>
@@ -48,11 +58,19 @@ export const FiltersSheet = ({
                     <SheetDescription>Filter, sort and manage how your clippings are displayed</SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-col gap-4 px-4 overflow-y-auto">
+                    <TemplateSelect
+                        classNames={{ container: "mb-2", selectTrigger: "w-full" }}
+                        templates={templates}
+                        setCurrentTemplateId={setCurrentTemplateId}
+                        currentTemplateId={currentTemplateId}
+                    />
+                    <Separator className="mb-2" />
                     <ClippingShowSetter
                         className="mb-4"
                         clippingShow={clippingShow}
                         setClippingShow={setClippingShow}
                     />
+
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="bookTitleFilter" className="text-sm font-medium">
                             Book title
@@ -196,7 +214,18 @@ export const FiltersSheet = ({
                 </div>
 
                 <SheetFooter>
-                    <Button type="submit">Save template</Button>
+                    <Button>Save template</Button>
+                    {currentTemplateId && (
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setCurrentTemplateId(undefined);
+                                setTemplates((prev) => prev.filter((t) => t.id !== currentTemplateId));
+                            }}
+                        >
+                            Delete template
+                        </Button>
+                    )}
                     <Button
                         variant="outline"
                         onClick={() => {

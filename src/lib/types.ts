@@ -35,3 +35,13 @@ export interface IClippingFilter {
     pageFrom?: number;
     pageTo?: number;
 }
+
+export interface IClippingsTemplate {
+    id: string;
+    name: string;
+    template: {
+        filter?: IClippingFilter;
+        show: IClippingShow;
+        clippings: IClipping[];
+    };
+}

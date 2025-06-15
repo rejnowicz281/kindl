@@ -12,9 +12,9 @@ interface ClippingShowSetterProps {
 export const ClippingShowSetter = ({ clippingShow, setClippingShow, className }: ClippingShowSetterProps) => {
     const shouldBeDisabled = (key: keyof IClippingShow) => {
         return (
-            (key === "text" && !clippingShow.highlightInfo && !clippingShow.bookTitle) ||
-            (key === "highlightInfo" && !clippingShow.text && !clippingShow.bookTitle) ||
-            (key === "bookTitle" && !clippingShow.text && !clippingShow.highlightInfo)
+            (key === "text" && !clippingShow.highlightInfo && !clippingShow.bookTitle && clippingShow.text) ||
+            (key === "highlightInfo" && !clippingShow.text && !clippingShow.bookTitle && clippingShow.highlightInfo) ||
+            (key === "bookTitle" && !clippingShow.text && !clippingShow.highlightInfo && clippingShow.bookTitle)
         );
     };
 
