@@ -18,7 +18,7 @@ function App() {
                 <ClippingsImporter
                     helperText={
                         !clippings.length
-                            ? "Import a kindle My Clippings.txt file to see its content formatted below:"
+                            ? "Import a kindle My Clippings.txt file to see its content formatted below"
                             : null
                     }
                     onImport={(clippings) => setClippings(clippings)}
