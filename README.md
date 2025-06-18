@@ -38,6 +38,10 @@ You can also save your current clippings and filters as templates, which get sav
 4. The 'My Clippings.txt' file should be there.
    If you don't see it, make sure you have some highlights or notes in your kindle.
 
+## Example My Clippings.txt file
+
+Go to [this](https://github.com/rejnowicz281/my_clippings_example/blob/main/My%20Clippings.txt) link to download an example clippings file
+
 ## Demo
 
 Live demo here: [live demo](https://rejnowicz281.github.io/kindl/)
